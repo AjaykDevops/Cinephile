@@ -177,38 +177,60 @@ body {
 
 .filter-bar {
   display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin: 20px 40px 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 20px 20px 10px;
+  align-items: stretch;
 
-  .search-input,
-  .filter-dropdown {
-    padding: 8px 12px;
+  .search-input {
+    height: 40px; // ✅ Set fixed height
+    width: 100%;
+    padding: 0 12px;
     border-radius: 8px;
     border: none;
     font-size: 1rem;
     background-color: #1f1f1f;
     color: #fff;
+    box-sizing: border-box;
   }
 
-  .search-input::placeholder {
-    color: #aaa;
-  }
+  ng-select.filter-dropdown {
+    width: 100%;
 
-  .filter-dropdown {
-    cursor: pointer;
+    ::ng-deep .ng-select-container {
+      height: 40px; // ✅ Same height as input
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      background-color: #1f1f1f;
+      color: #fff;
+      border-radius: 8px;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    ::ng-deep .ng-value-container {
+      padding: 0;
+    }
+
+    ::ng-deep .ng-input {
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+/* Desktop layout: row + align right */
+@media (min-width: 768px) {
+  .filter-bar {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 
-  ng-select {
-    flex: 0 0 auto;
-    width: 200px;
+    .search-input,
+    ng-select.filter-dropdown {
+      max-width: 250px;
+    }
   }
 }
 
