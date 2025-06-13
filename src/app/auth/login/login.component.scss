@@ -1,0 +1,132 @@
+:host {
+  display: block;
+  background-color: #121212;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  padding: 30px 25px;
+  border-radius: 20px;
+  background: rgba(39, 39, 39, 0.85);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05), 0 8px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.title {
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #1e1e1e;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: border 0.2s ease-in-out;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:focus-within {
+    border: 1px solid #ffffff99;
+  }
+}
+
+.input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 14px;
+  padding: 6px 0;
+
+  &::placeholder {
+    color: #aaa;
+    font-size: 13px;
+  }
+}
+
+p {
+  text-align: center;
+  font-size: 13px;
+}
+
+.texture {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  z-index: -1;
+}
+
+.icon-button {
+  position: relative;
+
+  .google-icon {
+    position: absolute;
+    left: 100px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+  }
+
+  .input,
+  .login-button .input,
+  .icon-button .input {
+    padding-left: 38px; // Leave space for the icon
+    position: relative;
+    background-color: #272727;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    width: 100%;
+    padding: 10px;
+    box-shadow: inset 0px 3px 6px rgba(255, 255, 255, 0.05),
+      0 0 5px rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &::placeholder {
+      color: #aaa;
+    }
+
+    &:hover {
+      background-color: #373737;
+    }
+  }
+}

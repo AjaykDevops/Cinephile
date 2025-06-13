@@ -1,0 +1,45 @@
+<h2 class="section-title">Your Wishlist</h2>
+<div *ngIf="wishlist$ | async as wishlist">
+  <div *ngIf="wishlist.length > 0; else noItems">
+    <div class="wishlist-container">
+      <div
+        class="card"
+        *ngFor="let movie of wishlist"
+        (click)="goToDetails(movie.id)"
+      >
+        <img
+          class="img"
+          [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path"
+          alt="Movie Poster"
+        />
+        <div class="textBox">
+          <p class="text head">{{ movie.title }}</p>
+          <span>Saved Movie</span>
+          <p class="text price">{{ movie.vote_average }} / 10</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noItems>
+    <p class="no-wishlist-msg">No items in your wishlist.</p>
+  </ng-template>
+</div>
+
+<button class="back-button" (click)="goBack()">
+  <div class="button-box">
+    <span class="button-elem">
+      <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+        ></path>
+      </svg>
+    </span>
+    <span class="button-elem">
+      <svg viewBox="0 0 46 40">
+        <path
+          d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+        ></path>
+      </svg>
+    </span>
+  </div>
+</button>

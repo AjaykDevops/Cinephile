@@ -1,0 +1,257 @@
+/* Full screen fixed blurred background */
+.background-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  filter: blur(15px) brightness(0.5);
+  z-index: 0;
+}
+
+/* Host container */
+:host {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 24px 12px;
+
+  @media screen and (min-width: 768px) {
+    padding: 40px 20px;
+  }
+}
+
+/* Main movie container */
+.movie-details-container {
+  position: relative;
+  background-color: #0d0d0d;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+  padding: 20px 16px;
+  width: 100%;
+  max-width: 900px;
+  z-index: 1;
+
+  @media screen and (min-width: 768px) {
+    padding: 30px 40px;
+  }
+}
+
+/* Flex layout for poster + content */
+.movie-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* Poster section */
+.poster-section {
+  max-width: 240px;
+  width: 100%;
+
+  img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  }
+
+  @media screen and (min-width: 768px) {
+    max-width: 300px;
+  }
+}
+
+/* Details (text) section */
+.details-section {
+  flex: 1;
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    margin-left: 30px;
+    max-width: 600px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    color: #ffcc00;
+    margin-bottom: 12px;
+
+    @media screen and (min-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .movie-overview,
+  .movie-info {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+
+    @media screen and (min-width: 768px) {
+      font-size: 1.1rem;
+    }
+
+    strong {
+      color: #ffcc00;
+    }
+  }
+}
+
+/* Trailer carousel section */
+.carousel-container {
+  margin: 30px auto 20px;
+}
+
+/* Section title */
+.section-title {
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 16px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+/* Scrollable video list */
+.videos-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 10px;
+  scroll-behavior: smooth;
+  justify-content: flex-start;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: #888 transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+
+    &:hover {
+      background: #999;
+    }
+  }
+
+  .video-card {
+    flex: 0 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    iframe {
+      width: 240px;
+      height: 135px;
+
+      @media screen and (min-width: 768px) {
+        width: 300px;
+        height: 170px;
+      }
+    }
+  }
+}
+
+.details-section {
+  .wishlist-icon {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+
+    .container {
+      --size: 24px;
+      cursor: pointer;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      fill: #fff;
+
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        width: 0;
+        height: 0;
+      }
+
+      .save-regular,
+      .save-solid {
+        position: absolute;
+        transition: transform 0.3s ease;
+      }
+
+      .save-solid {
+        display: none;
+      }
+
+      input:checked ~ .save-regular {
+        display: none;
+      }
+
+      input:checked ~ .save-solid {
+        display: block;
+        animation: bookmark-pop 0.3s ease;
+      }
+    }
+  }
+}
+
+@keyframes bookmark-pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.container {
+  position: relative;
+
+  .tooltip-text {
+    visibility: hidden;
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 4px;
+    position: relative;
+    bottom: 5%;
+    left: 80%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}

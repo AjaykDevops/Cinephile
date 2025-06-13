@@ -1,0 +1,241 @@
+<div class="Heading">
+  <h1 class="cinephile-heading">CINEPHILE</h1>
+  <h2 class="cinephile-Subheading">Lights. Camera. Discover</h2>
+</div>
+
+<!-- ✅ Top-right profile icon (Always visible) -->
+<div
+  class="profile-icon"
+  (click)="toggleProfileCard()"
+  aria-label="User Profile"
+>
+  <img
+    [src]="(user$ | async)?.photoURL || 'assets/default-profile.png'"
+    alt="Profile Picture"
+    class="profile-img"
+  />
+</div>
+
+<!-- ✅ Profile Card -->
+<div class="profile-card-panel" [class.open]="isProfileCardOpen">
+  <div class="user-profile-card">
+    <!-- Logged In User View -->
+    <div *ngIf="user$ | async as user; else guestBlock">
+      <div class="username">
+        <span
+          *ngIf="
+            customUsernameSet && !editUsernameMode;
+            else usernameInputBlock
+          "
+        >
+          {{ customUsername }}
+        </span>
+
+        <!-- Username Input Block -->
+        <ng-template #usernameInputBlock>
+          <input [(ngModel)]="usernameInput" placeholder="Enter username" />
+          <button class="card_btn" (click)="setUsername()">Set</button>
+        </ng-template>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn-1" (click)="goToWishlist()">Wishlist</button>
+        <button
+          class="btn-1"
+          *ngIf="customUsernameSet"
+          (click)="enableUsernameEdit()"
+        >
+          Edit Username
+        </button>
+        <button class="btn-1" (click)="logout()">Logout</button>
+      </div>
+    </div>
+
+    <!-- Guest User View -->
+    <ng-template #guestBlock>
+      <div class="username">Guest</div>
+      <button class="btn-1" (click)="router.navigate(['/login'])">Login</button>
+    </ng-template>
+  </div>
+</div>
+
+<!-- ✅ Filter and Search Bar -->
+<div class="filter-bar">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    (keyup.enter)="onSearch()"
+    placeholder="Search for a movie..."
+    class="search-input"
+  />
+
+  <!-- Genre Dropdown -->
+  <ng-select
+    *ngIf="genres.length"
+    [items]="genres"
+    bindLabel="name"
+    bindValue="id"
+    [(ngModel)]="selectedGenre"
+    [searchable]="true"
+    [clearable]="true"
+    placeholder="All Genres"
+    (change)="onFilterChange()"
+    class="filter-dropdown"
+  >
+  </ng-select>
+
+  <!-- Language Dropdown -->
+  <ng-select
+    *ngIf="languages.length"
+    [items]="languages"
+    bindLabel="english_name"
+    bindValue="iso_639_1"
+    [(ngModel)]="selectedLanguage"
+    [searchable]="true"
+    [clearable]="true"
+    placeholder="All Languages"
+    (change)="onFilterChange()"
+    class="filter-dropdown"
+  >
+  </ng-select>
+</div>
+
+<!-- ✅ Search Results Section -->
+<div *ngIf="searchResults.length">
+  <h2 class="heading">Search Results</h2>
+  <div class="movies-strip">
+    <div
+      *ngFor="let movie of searchResults"
+      class="card"
+      (click)="goToDetails(movie.id)"
+      style="cursor: pointer"
+    >
+      <img
+        class="img"
+        [src]="
+          movie.poster_path
+            ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
+            : 'assets/default-image.jpg'
+        "
+        alt="{{ movie.title }}"
+      />
+      <div class="textBox">
+        <p class="text head">{{ movie.title }}</p>
+        <span>Movie</span>
+        <p class="text price">{{ movie.vote_average }} / 10</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Popular Movies Carousel -->
+<div class="carousel-container">
+  <h2 class="section-title">Popular Movies</h2>
+  <div class="movies-strip" #popularFilmstrip>
+    <div
+      *ngFor="let movie of popularMovies"
+      class="card"
+      (click)="goToDetails(movie.id)"
+    >
+      <img
+        class="img"
+        [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path"
+        alt="{{ movie.title }}"
+      />
+      <div class="textBox">
+        <p class="text head">{{ movie.title }}</p>
+        <span>Movie</span>
+        <p class="text price">{{ movie.vote_average }} / 10</p>
+      </div>
+    </div>
+  </div>
+  <button class="scroll-btn left" (click)="scrollLeft('popular')">
+    &#10094;
+  </button>
+  <button class="scroll-btn right" (click)="scrollRight('popular')">
+    &#10095;
+  </button>
+</div>
+
+<!-- ✅ Top Rated Movies Carousel -->
+<div class="carousel-container">
+  <h2 class="section-title">Top Rated Movies</h2>
+  <div class="movies-strip" #topRatedFilmstrip>
+    <div
+      *ngFor="let movie of topRatedMovies"
+      class="card"
+      (click)="goToDetails(movie.id)"
+    >
+      <img
+        class="img"
+        [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path"
+        alt="{{ movie.title }}"
+      />
+      <div class="textBox">
+        <p class="text head">{{ movie.title }}</p>
+        <span>Movie</span>
+        <p class="text price">{{ movie.vote_average }} / 10</p>
+      </div>
+    </div>
+  </div>
+  <button class="scroll-btn left" (click)="scrollLeft('topRated')">
+    &#10094;
+  </button>
+  <button class="scroll-btn right" (click)="scrollRight('topRated')">
+    &#10095;
+  </button>
+</div>
+
+<!-- ✅ Upcoming Movies Carousel -->
+<div class="carousel-container">
+  <h2 class="section-title">Upcoming Movies</h2>
+  <div class="movies-strip" #upcomingFilmstrip>
+    <div
+      *ngFor="let movie of upcomingMovies"
+      class="card"
+      (click)="goToDetails(movie.id)"
+    >
+      <img
+        class="img"
+        [src]="'https://image.tmdb.org/t/p/w500/' + movie.poster_path"
+        alt="{{ movie.title }}"
+      />
+      <div class="textBox">
+        <p class="text head">{{ movie.title }}</p>
+        <span>Movie</span>
+        <p class="text price">{{ movie.vote_average }} / 10</p>
+      </div>
+    </div>
+  </div>
+  <button class="scroll-btn left" (click)="scrollLeft('upcoming')">
+    &#10094;
+  </button>
+  <button class="scroll-btn right" (click)="scrollRight('upcoming')">
+    &#10095;
+  </button>
+</div>
+
+<!-- ✅ Loading Template -->
+<ng-template #loading>
+  <p>Loading movies...</p>
+</ng-template>
+
+<!-- ✅ Back Button -->
+<button class="back-button" (click)="goBack()" aria-label="Go Back">
+  <div class="button-box">
+    <span class="button-elem">
+      <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+        ></path>
+      </svg>
+    </span>
+    <span class="button-elem">
+      <svg viewBox="0 0 46 40">
+        <path
+          d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+        ></path>
+      </svg>
+    </span>
+  </div>
+</button>

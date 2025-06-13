@@ -1,0 +1,119 @@
+.landing-container {
+  height: 100vh;
+  background: url("/assets/movie_bg.jpg") no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.cinephile-title {
+  font-family: "Cinecav X", "Cinzel Decorative", serif;
+  font-size: 5rem;
+  margin: 20px 0;
+  z-index: 2;
+}
+
+.cinephile-quote {
+  font-size: 1.8rem;
+  font-style: italic;
+  margin-top: -10px;
+  z-index: 2;
+}
+
+.home-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.home-btn:hover {
+  background-color: #e03e3e;
+}
+
+.custom-btn {
+  font-size: 18px;
+  color: #e1e1e1;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: color;
+}
+
+.custom-btn:focus,
+.custom-btn:hover {
+  color: #fff;
+}
+
+.custom-btn:focus::after,
+.custom-btn:hover::after {
+  width: 100%;
+  left: 0%;
+}
+
+.custom-btn::after {
+  content: "";
+  pointer-events: none;
+  bottom: -2px;
+  left: 50%;
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 400ms;
+  transition-property: width, left;
+}
+
+/* Responsive Media Queries */
+
+/* Small devices (phones) */
+@media (max-width: 480px) {
+  .cinephile-title {
+    font-size: 3rem;
+  }
+
+  .cinephile-quote {
+    font-size: 1.2rem;
+  }
+
+  .custom-btn {
+    font-size: 16px;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .cinephile-title {
+    font-size: 4rem;
+  }
+
+  .cinephile-quote {
+    font-size: 1.5rem;
+  }
+
+  .custom-btn {
+    font-size: 17px;
+  }
+}

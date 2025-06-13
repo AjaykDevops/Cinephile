@@ -1,0 +1,110 @@
+<!-- Fixed blurred background -->
+<div
+  class="background-banner"
+  *ngIf="movie && movie.backdrop_path"
+  [ngStyle]="{
+    'background-image':
+      'url(https://image.tmdb.org/t/p/original' + movie.backdrop_path + ')'
+  }"
+></div>
+
+<!-- Main content container -->
+<div class="movie-details-container" *ngIf="movie">
+  <div class="movie-main-content">
+    <!-- Poster -->
+    <div class="poster-section">
+      <img
+        class="movie-poster"
+        [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+        alt="{{ movie.title }}"
+      />
+    </div>
+
+    <!-- Details -->
+    <div class="details-section">
+      <h1 class="movie-title">{{ movie.title }}</h1>
+      <p class="movie-overview">{{ movie.overview }}</p>
+
+      <p class="movie-info">
+        <strong>Release Date:</strong> {{ movie.release_date }}
+      </p>
+      <p class="movie-info">
+        <strong>Rating:</strong> {{ movie.vote_average }} / 10
+      </p>
+
+      <!-- Wishlist Bookmark Toggle -->
+      <div class="wishlist-icon">
+        <label class="container">
+          <input
+            type="checkbox"
+            [checked]="isWishlisted"
+            (change)="toggleWishlist()"
+          />
+          <!-- Outline bookmark icon -->
+          <svg
+            class="save-regular"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"
+            height="1.5em"
+          >
+            <path
+              d="M336 0H48C21.5 0 0 21.5 0 48v464l192-112 192 112V48c0-26.5-21.5-48-48-48zM336 439.6l-144-83.7-144 83.7V48h288v391.6z"
+            />
+          </svg>
+
+          <!-- Filled bookmark icon -->
+          <svg
+            class="save-solid"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"
+            height="1.5em"
+          >
+            <path
+              fill="#ffcc00"
+              d="M336 0H48C21.5 0 0 21.5 0 48v464l192-112 192 112V48c0-26.5-21.5-48-48-48z"
+            />
+          </svg>
+          <span class="tooltip-text">
+            {{ isWishlisted ? "Remove from Wishlist" : "Add to Wishlist" }}
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Carousel -->
+  <div class="carousel-container" *ngIf="videos.length > 0">
+    <h3 class="section-title">Watch Trailer</h3>
+    <div class="videos-strip">
+      <div class="video-card" *ngFor="let videoUrl of videos">
+        <iframe
+          width="300"
+          height="180"
+          [src]="videoUrl"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <button class="back-button" (click)="goBack()">
+    <div class="button-box">
+      <span class="button-elem">
+        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+          ></path>
+        </svg>
+      </span>
+      <span class="button-elem">
+        <svg viewBox="0 0 46 40">
+          <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+          ></path>
+        </svg>
+      </span>
+    </div>
+  </button>
+</div>
