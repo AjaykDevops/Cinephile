@@ -54,16 +54,28 @@
   cursor: pointer;
   position: relative;
   border: none;
-  background: none;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* semi-transparent blurred background */
   text-transform: uppercase;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
   transition-duration: 400ms;
   transition-property: color;
+
+  padding: 0.7em 1.2em; /* Add padding for button shape */
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .custom-btn:focus,
 .custom-btn:hover {
-  color: #fff;
+  color: red;
 }
 
 .custom-btn:focus::after,

@@ -171,6 +171,60 @@
   }
 }
 
+/* OTT availability row */
+.ott-container {
+  margin: 30px auto 20px;
+}
+
+/* Scrollable OTT list (like videos-strip) */
+.ott-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 10px;
+  scroll-behavior: smooth;
+  justify-content: flex-start;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: #888 transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+
+    &:hover {
+      background: #999;
+    }
+  }
+
+  .ott-card {
+    flex: 0 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #1c1c1c;
+    padding: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .ott-logo {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+
+      @media screen and (min-width: 768px) {
+        height: 70px;
+      }
+    }
+  }
+}
+
 .details-section {
   .wishlist-icon {
     margin-top: 30px;

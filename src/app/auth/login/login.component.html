@@ -1,6 +1,7 @@
 <div class="wrapper">
-  <form class="form" (ngSubmit)="login()">
-    <span class="title">Login</span>
+  <form class="form" (ngSubmit)="onSubmit()">
+    <!-- Dynamic Title -->
+    <span class="title">{{ mode === "login" ? "Sign In" : "Sign Up" }}</span>
 
     <!-- Email Input -->
     <div class="input-container">
@@ -58,22 +59,18 @@
       />
     </div>
 
-    <!-- Login Button -->
+    <!-- Submit Button -->
     <div class="login-button icon-button">
-      <button type="submit" class="input">Login</button>
+      <button type="submit" class="input">
+        {{ mode === "login" ? "Login" : "Sign Up" }}
+      </button>
     </div>
 
-    <!-- Register Button -->
-    <div class="login-button icon-button">
-      <button type="button" class="input" (click)="register()">Register</button>
-    </div>
-
-    <!-- Google Login Button with inline SVG icon -->
-    <div class="login-button icon-button" style="position: relative">
+    <!-- Google Login Button -->
+    <div class="google-login-button">
       <input
-        class="input"
         type="button"
-        value="Login with Google"
+        value="Sign In with Google"
         (click)="googleLogin()"
       />
       <svg
@@ -102,6 +99,17 @@
 
     <!-- Error Message -->
     <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
+
+    <!-- Toggle Link -->
+    <div class="toggle-text">
+      <a href="#" (click)="toggleMode(); $event.preventDefault()">
+        {{
+          mode === "login"
+            ? "Don't have an account? Sign up"
+            : "Already have an account? Sign in"
+        }}
+      </a>
+    </div>
 
     <div class="texture"></div>
   </form>

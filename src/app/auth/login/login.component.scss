@@ -90,43 +90,94 @@ p {
   z-index: -1;
 }
 
-.icon-button {
+.google-login-button {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  input[type="button"] {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    border-radius: 12px;
+    border: none;
+    background-color: #272727;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: inset 0px 3px 6px rgba(255, 255, 255, 0.05),
+      0 0 5px rgba(255, 255, 255, 0.05);
+
+    &:hover {
+      background-color: #373737;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #aaa;
+    }
+  }
 
   .google-icon {
     position: absolute;
     left: 100px;
     top: 50%;
     transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     pointer-events: none;
   }
+}
 
-  .input,
-  .login-button .input,
-  .icon-button .input {
-    padding-left: 38px; // Leave space for the icon
-    position: relative;
-    background-color: #272727;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    width: 100%;
-    padding: 10px;
-    box-shadow: inset 0px 3px 6px rgba(255, 255, 255, 0.05),
-      0 0 5px rgba(255, 255, 255, 0.05);
-    cursor: pointer;
-    transition: background 0.3s ease;
+// Autofill Fix
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+// Responsive adjustments
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .input-container {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .input {
+    font-size: 13px;
 
     &::placeholder {
-      color: #aaa;
+      font-size: 12px;
+    }
+  }
+
+  .google-login-button {
+    input[type="button"] {
+      padding: 10px 12px 10px 40px;
+      font-size: 13px;
     }
 
-    &:hover {
-      background-color: #373737;
+    .google-icon {
+      left: 100px;
+      width: 16px;
+      height: 16px;
     }
   }
 }

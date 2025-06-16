@@ -72,6 +72,22 @@
     </div>
   </div>
 
+  <!-- OTT Watch Providers -->
+  <div class="carousel-container" *ngIf="ottProviders.length > 0">
+    <h3 class="section-title">Available On</h3>
+    <div class="videos-strip">
+      <div class="video-card" *ngFor="let provider of ottProviders">
+        <img
+          [src]="'https://image.tmdb.org/t/p/w200' + provider.logo_path"
+          [alt]="provider.provider_name"
+          width="80"
+          height="80"
+          style="border-radius: 10px"
+        />
+      </div>
+    </div>
+  </div>
+
   <!-- Video Carousel -->
   <div class="carousel-container" *ngIf="videos.length > 0">
     <h3 class="section-title">Watch Trailer</h3>

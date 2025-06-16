@@ -21,6 +21,7 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
   isWishlisted: boolean = false;
   isLoggedIn: boolean = false;
   private authSubscription?: Subscription;
+  ottProviders: any[] = [];
 
   constructor(
     private router: Router,
@@ -58,6 +59,9 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
           )
         );
       });
+
+      // ✅ Fetch OTT providers using movieId (number)
+      this.fetchWatchProviders(movieId);
     }
 
     // Listen to auth state changes
@@ -131,5 +135,12 @@ export class MovieDetailComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.router.navigate(['/home']);
+  }
+
+  fetchWatchProviders(movieId: number): void {
+    this.movieService.getWatchProviders(movieId).subscribe((res: any) => {
+      const indianProviders = res.results?.IN?.flatrate || [];
+      this.ottProviders = indianProviders;
+    });
   }
 }

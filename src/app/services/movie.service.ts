@@ -76,4 +76,11 @@ export class MovieService {
 
     return this.http.get(url);
   }
+
+  // Get Watch Providers (OTT platforms) for a movie
+  getWatchProviders(movieId: number) {
+    return this.http.get(
+      `${this.baseUrl}/movie/${movieId}/watch/providers?api_key=${environment.tmdbApiKey}`
+    );
+  }
 }
